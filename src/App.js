@@ -1,10 +1,11 @@
 import './App.css';
-import AboutUs from './components/AboutUs';
+import ChangeEmail from './components/profileSettings/ChangeEmail';
+import ChangePassword from './components/profileSettings/ChangePassword';
 
 function App() {
   return (
     <div>
-      <AboutUs />
+      <ChangeEmail />
     </div>
   );
 }
