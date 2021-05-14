@@ -9,7 +9,7 @@ const postgrator = new Postgrator({
 	port: 3306,
 	database: 'workify',
 	username: 'root',
-	password: '260295',
+	password: '',
 	schemaTable: 'migrations'
 });
 exports.postgrator = postgrator;
