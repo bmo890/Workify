@@ -1,7 +1,7 @@
 const path = require('path');
 const mysql = require('mysql');
 const Postgrator = require('postgrator');
-
+//260295
 const postgrator = new Postgrator({
 	migrationDirectory: path.resolve(__dirname, '../migrations'),
 	driver: 'mysql',
@@ -9,7 +9,7 @@ const postgrator = new Postgrator({
 	port: 3306,
 	database: 'workify',
 	username: 'root',
-	password: '',
+	password: 'root',
 	schemaTable: 'migrations'
 });
 exports.postgrator = postgrator;
@@ -19,7 +19,7 @@ const pool = mysql.createPool({
 	database: 'workify',
 	port: 3306,
 	user: 'root',
-	password: '260295'
+	password: 'root'
 });
 exports.pool = pool;
 

@@ -5,6 +5,7 @@ const app = express();
 const PORT = 8080;
 app.use(express.json());
 app.use(cors());
+app.use('/public', express.static('public'));
 app.use('/users', require('./routes/users'));
 app.use('/jobs', require('./routes/jobs'));
 app.get('/', (req, res) => {
