@@ -23,7 +23,7 @@ function AboutUs() {
       <h3 className="text-center m-5 display-4">Our Team</h3>
       <Container>
         <CardColumns>
-          <Card>
+          <Card className="shadow p-3 mb-2 mt-2 bg-body rounded">
             <div className="text-center pt-3">
               <Image
                 className="w-50"
@@ -45,7 +45,7 @@ function AboutUs() {
               </small>
             </Card.Body>
           </Card>
-          <Card>
+          <Card className="shadow p-3 mb-2 mt-2 bg-body rounded">
             <div className="text-center pt-3">
               <Image
                 className="w-50"
@@ -67,7 +67,7 @@ function AboutUs() {
               </small>
             </Card.Body>
           </Card>
-          <Card>
+          <Card className="shadow p-3 mb-2 mt-2 bg-body rounded">
             <div className="text-center pt-3">
               <Image
                 className="w-50"
@@ -89,29 +89,7 @@ function AboutUs() {
               </small>
             </Card.Body>
           </Card>
-          <Card>
-            <div className="text-center pt-3">
-              <Image
-                className="w-50"
-                roundedCircle
-                variant="top"
-                src="https://i.pinimg.com/originals/fb/1a/08/fb1a084451d2a770ecab51e412070b28.jpg"
-              />
-              <hr />
-            </div>
-            <Card.Body>
-              <Card.Title>Elad</Card.Title>
-              <Card.Text>
-                This is a longer card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
-              <small className="text-muted">
-                Someone famous in <cite title="Source Title">Source Title</cite>
-              </small>
-            </Card.Body>
-          </Card>
-          <Card>
+          <Card className="shadow p-3 mb-2 mt-2 bg-body rounded">
             <div className="text-center pt-3">
               <Image
                 className="w-50"
@@ -123,6 +101,28 @@ function AboutUs() {
             </div>
             <Card.Body>
               <Card.Title>Yona</Card.Title>
+              <Card.Text>
+                This is a longer card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </Card.Text>
+              <small className="text-muted">
+                Someone famous in <cite title="Source Title">Source Title</cite>
+              </small>
+            </Card.Body>
+          </Card>
+          <Card className="shadow p-3 mb-2 mt-2 bg-body rounded">
+            <div className="text-center pt-3">
+              <Image
+                className="w-50"
+                roundedCircle
+                variant="top"
+                src="https://i.pinimg.com/originals/fb/1a/08/fb1a084451d2a770ecab51e412070b28.jpg"
+              />
+              <hr />
+            </div>
+            <Card.Body>
+              <Card.Title>Elad</Card.Title>
               <Card.Text>
                 This is a longer card with supporting text below as a natural
                 lead-in to additional content. This content is a little bit
