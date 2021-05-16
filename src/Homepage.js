@@ -15,7 +15,6 @@ export default function Homepage(props) {
     const handleBasicType = (value) => { setBasicType(value) }
     const [searchResults, setSearchResults] = useState(jobsList)
 
-    console.log(searchResults)
     return (
         <div>
             <h1>Workify Homepage</h1>
