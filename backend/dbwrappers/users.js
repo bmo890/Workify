@@ -7,7 +7,7 @@ async function addUser(email, passwordHash, name, lastName, phone_number, locati
         await query(SQL`INSERT INTO users (email, password, first_name, last_name, phone, location)
          VALUES (${email}, ${passwordHash}, ${name}, ${lastName}, ${phone_number}, ${location} )`)
     } catch (err) {
-        console.error(err)
+        return err
     }
 }
 
@@ -16,7 +16,6 @@ exports.addUser = addUser
 
 async function getUserByEmail(email) {
     const rows = await query(SQL`SELECT * FROM users WHERE email=${email}`)
-    console.log(rows)
     return rows[0]
 }
 
@@ -39,7 +38,7 @@ async function comapareEmailPassword(req, res, next) {
             }
         })
     } catch (err) {
-        console.error(err)
+        return err
     }
 }
 
@@ -47,12 +46,13 @@ exports.comapareEmailPassword = comapareEmailPassword
 
 
 async function editProfile(id, newUsername, oldUsername, first_name, last_name, phone, location, hash) {
-    const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newUsername}`)
-    //console.log(checkEmail)
-    if (checkEmail.length > 0) {
-        return "Username already exists"
-    } else {
-        await query(SQL`UPDATE users
+    try {
+        const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newUsername}`)
+        //console.log(checkEmail)
+        if (checkEmail.length > 0) {
+            return "Username already exists"
+        } else {
+            await query(SQL`UPDATE users
         SET
         email = ${newUsername},
         first_name = ${first_name},
@@ -63,24 +63,28 @@ async function editProfile(id, newUsername, oldUsername, first_name, last_name, 
         WHERE
         id = ${id}`)
 
-        await query(SQL`UPDATE jobs
+            await query(SQL`UPDATE jobs
         SET
         user_id = ${newUsername}
         WHERE
         user_id= ${oldUsername}`)
-        return "Profile edited succesfully"
+            return "Profile edited succesfully"
+        }
+    } catch (err) {
+        return err
     }
 }
 
 exports.editProfile = editProfile
 
 async function editProfileWithoutPassword(id, newUsername, oldUsername, first_name, last_name, phone, location) {
-    const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newUsername}`)
-    //console.log(checkEmail)
-    if (checkEmail.length > 0) {
-        return "Username already exists"
-    } else {
-        await query(SQL`UPDATE users
+    try {
+        const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newUsername}`)
+        //console.log(checkEmail)
+        if (checkEmail.length > 0) {
+            return "Username already exists"
+        } else {
+            await query(SQL`UPDATE users
         SET
         email = ${newUsername},
         first_name = ${first_name},
@@ -90,13 +94,16 @@ async function editProfileWithoutPassword(id, newUsername, oldUsername, first_na
         WHERE
         id = ${id}`)
 
-        await query(SQL`UPDATE jobs
+            await query(SQL`UPDATE jobs
         SET
         user_id = ${newUsername}
         WHERE
         user_id = ${oldUsername}`)
 
-        return "Profile edited succesfully without password"
+            return "Profile edited succesfully without password"
+        }
+    } catch (err) {
+        return err
     }
 }
 

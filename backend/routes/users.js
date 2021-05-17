@@ -20,7 +20,7 @@ router.post('/',
                     res.status(200).send({ message: "User created succesfully", email: email, name: name, lastName: lastName })
                 }
             } catch (err) {
-                console.error(err)
+                res.status(400)
             }
         })
     })
