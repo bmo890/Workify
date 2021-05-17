@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { addUser, getUserByEmail, comapareEmailPassword } = require('../dbwrappers/users')
+const { addUser, getUserByEmail, comapareEmailPassword, editProfileWithoutPassword, editProfile } = require('../dbwrappers/users')
 const router = express.Router();
 //installed bcrypt 
 
@@ -46,6 +46,26 @@ router.post(
         }
     }
 );
+
+router.post('/edit', async (req, res) => {
+    const { id, email, oldEmail, first_name, last_name, phone, location, password } = req.body
+    try {
+        if (!password) {
+            const response = await editProfileWithoutPassword(id, email,oldEmail, first_name, last_name, phone, location)
+            return res.status(202).send({ message: response })
+        }
+        bcrypt.hash(password, 10, async (err, hash) => {
+            if (err) next(err)
+            else {
+                const response = await editProfile(id, email,oldEmail, first_name, last_name, phone, location, hash)
+                res.status(202).send({ message: response })
+            }
+        })
+    } catch (err) {
+        res.status(403).send(err)
+    }
+
+})
 
 
 module.exports = router;

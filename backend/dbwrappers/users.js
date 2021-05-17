@@ -46,3 +46,60 @@ async function comapareEmailPassword(req, res, next) {
 exports.comapareEmailPassword = comapareEmailPassword
 
 
+async function editProfile(id, newUsername, oldUsername, first_name, last_name, phone, location, hash) {
+    const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newUsername}`)
+    //console.log(checkEmail)
+    if (checkEmail.length > 0) {
+        return "Username already exists"
+    } else {
+        await query(SQL`UPDATE users
+        SET
+        email = ${newUsername},
+        first_name = ${first_name},
+        last_name = ${last_name},
+        phone = ${phone},
+        location = ${location},
+        password = ${hash}
+        WHERE
+        id = ${id}`)
+
+        await query(SQL`UPDATE jobs
+        SET
+        user_id = ${newUsername}
+        WHERE
+        user_id= ${oldUsername}`)
+        return "Profile edited succesfully"
+    }
+}
+
+exports.editProfile = editProfile
+
+async function editProfileWithoutPassword(id, newUsername, oldUsername, first_name, last_name, phone, location) {
+    const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newUsername}`)
+    //console.log(checkEmail)
+    if (checkEmail.length > 0) {
+        return "Username already exists"
+    } else {
+        await query(SQL`UPDATE users
+        SET
+        email = ${newUsername},
+        first_name = ${first_name},
+        last_name = ${last_name},
+        phone = ${phone},
+        location = ${location}
+        WHERE
+        id = ${id}`)
+
+        await query(SQL`UPDATE jobs
+        SET
+        user_id = ${newUsername}
+        WHERE
+        user_id = ${oldUsername}`)
+
+        return "Profile edited succesfully without password"
+    }
+}
+
+exports.editProfileWithoutPassword = editProfileWithoutPassword
+
+
