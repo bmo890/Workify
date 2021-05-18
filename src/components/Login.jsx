@@ -1,6 +1,6 @@
 import { queryByRole } from "@testing-library/react";
 import { useState } from "react";
-import AuthProvider, { useAuth } from "../context/auth";
+import AuthProvider, { useAuth } from "../components/Auth";
 
 const Login = () => {
   let auth = useAuth();
@@ -10,38 +10,40 @@ const Login = () => {
     event.preventDefault();
     if (email && password) {
       try {
-        const { token, user } = await login(email, password);
-        await auth.saveToken(token);
-        await auth.saveUser(user);
+        // const { token, user } = await login(email, password);
+        // await auth.saveToken(token);
+        // await auth.saveUser(user);
       } catch (err) {
         alert("Bad username and password");
       }
     }
   };
   return (
-    <form onSubmit={handleOnSubmit}>
-      <div>
-        <label htmlFor="email">Email</label>
+    <form className="loginForm" onSubmit={handleOnSubmit}>
+      <div className="emailTag">
+        <label htmlFor="email"></label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           name="email"
           id="email"
+          placeholder="Email"
         />
       </div>
-      <div>
-        <label htmlFor="password">Password</label>
+      <div className="passwordTag">
+        <label htmlFor="password"></label>
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           name="password"
           id="password"
+          placeholder="Password"
         />
       </div>
       <div>
-        <button type="submit">Login</button>
+        <button class="btn btn-primary" type="submit">Login</button>
       </div>
     </form>
   );

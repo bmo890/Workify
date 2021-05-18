@@ -6,10 +6,20 @@ function JobForm() {
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
+    const [image, setImage] = useState();
+    
+    // const job = {}
+
+    const handleOnSubmit = async (event) => {
+        event.preventDefault();
+    }
+
+    // await postJob(job);
+
   return (
 <div>
     
-<form>
+<form className="jobForm" onSubmit={handleOnSubmit}>
         <div class="form-group col-md-6">
           <label for="inputTitle">Title</label>
           <input
@@ -58,6 +68,15 @@ function JobForm() {
             }}
           />
         </div>
+        <div>
+        <label htmlFor="image">Upload image</label>
+        <input
+          onChange={(e) => setImage(e.target.files[0])}
+          type="file"
+          name="picture"
+          id="image"
+        />
+      </div>
         <button type="submit" class="btn btn-primary" 
         //  onClick={}
          >

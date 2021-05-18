@@ -8,6 +8,31 @@ import {
 import About from "./components/About";
 import NavBar from "./components/NavBar";
 import JobForm from "./components/JobForm";
+import { useAuth } from "./components/Auth";
+import SignupModal from "./components/SignupModal";
+import Login from "./components/Login";
+
+
+function PrivateRoute({ children, ...rest }) {
+  let auth = useAuth();
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        auth.token ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 
 function App() {
   return (
@@ -16,6 +41,8 @@ function App() {
         <NavBar></NavBar>
         <Switch>
           <Route exact path="/">
+            <SignupModal/>
+            <Login/>
             {/* homepage */}
           </Route>
 

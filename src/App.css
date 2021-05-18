@@ -1,0 +1,43 @@
+body {
+  background-color: lightcyan;
+}
+
+.loginForm {
+  /* margin-left: 500px; */
+  position: absolute;
+  left: 6.46%;
+  right: 50.83%;
+  top: 33.3%;
+  bottom: 33.2%;
+  background: #484d5b;
+  border-radius: 70px;
+}
+
+.emailTag {
+  position: absolute;
+  left: 13.23%;
+  bottom: 54.39%;
+  background: #ffffff;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.passwordTag {
+  position: absolute;
+  left: 13.23%;
+  right: 57.6%;
+  top: 37.95%;
+  bottom: 48.34%;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.signupButton {
+  margin-left: 500px;
+  margin-top: 300px;
+}
+
+.jobForm {
+  margin-left: 400px;
+  margin-top: 30px;
+}
