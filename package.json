@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^12.1.10",
     "mysql": "^2.18.1",
     "postgrator": "^4.1.1",
-    "bootstrap": "4.6.0",
     "bootstrap": "^5.0.0",
     "localforage": "^1.9.0",
     "react": "^17.0.2",

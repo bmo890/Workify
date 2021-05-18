@@ -2,19 +2,18 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './Homepage'
 import JobPage from './JobPage'
-import "./App.css";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import About from "./components/About";
-import NavBar from "./components/NavBar";
-import JobForm from "./components/JobForm";
-import { useAuth } from "./components/Auth";
-import SignupModal from "./components/SignupModal";
-import Login from "./components/Login";
+import About from "./Components/About";
+import NavBar from "./Components/NavBar";
+import JobForm from "./Components/JobForm";
+import { useAuth } from "./Components/Auth";
+import SignupModal from "./Components/SignupModal";
+import Login from "./Components/Login";
 
 
 function PrivateRoute({ children, ...rest }) {

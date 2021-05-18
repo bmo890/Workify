@@ -1,6 +1,6 @@
 import { queryByRole } from "@testing-library/react";
 import { useState } from "react";
-import AuthProvider, { useAuth } from "../components/Auth";
+import AuthProvider, { useAuth } from "../Components/Auth";
 
 const Login = () => {
   let auth = useAuth();
