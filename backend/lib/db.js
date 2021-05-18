@@ -9,7 +9,7 @@ const postgrator = new Postgrator({
 	port: 3306,
 	database: 'workify',
 	username: 'root',
-	password: 'root',
+	password: '260295',
 	schemaTable: 'migrations'
 });
 exports.postgrator = postgrator;
@@ -19,7 +19,7 @@ const pool = mysql.createPool({
 	database: 'workify',
 	port: 3306,
 	user: 'root',
-	password: 'root'
+	password: '260295'
 });
 exports.pool = pool;
 
