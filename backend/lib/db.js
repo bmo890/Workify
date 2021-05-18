@@ -2,7 +2,6 @@ const path = require('path');
 const mysql = require('mysql');
 const Postgrator = require('postgrator');
 //260295
-//sd
 const postgrator = new Postgrator({
 	migrationDirectory: path.resolve(__dirname, '../migrations'),
 	driver: 'mysql',
