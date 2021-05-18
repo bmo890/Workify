@@ -5,21 +5,21 @@ const Postgrator = require('postgrator');
 const postgrator = new Postgrator({
 	migrationDirectory: path.resolve(__dirname, '../migrations'),
 	driver: 'mysql',
-	host: '127.0.0.1',
-	port: 3306,
-	database: 'workify',
-	username: 'root',
-	password: '260295',
+	host: process.env.DB_HOST,
+	port: +process.env.DB_PORT,
+	database: process.env.DB_DATABASE,
+	username: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD,
 	schemaTable: 'migrations'
 });
 exports.postgrator = postgrator;
 
 const pool = mysql.createPool({
-	host: '127.0.0.1',
-	database: 'workify',
-	port: 3306,
-	user: 'root',
-	password: '260295'
+	host: process.env.DB_HOST,
+	database: process.env.DB_DATABASE,
+	port: +process.env.DB_PORT,
+	user: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD
 });
 exports.pool = pool;
 
