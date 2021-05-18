@@ -6,7 +6,6 @@ import JobPage from './JobPage'
 function App() {
   return (
     <div>
-      <JobPage></JobPage>
     </div>
   );
 }

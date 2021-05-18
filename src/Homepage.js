@@ -59,6 +59,7 @@ export default function Homepage(props) {
                     <div style={{ display: 'flex', flexWrap: 'wrap' }} className="container">
                         {searchResults.map((job) => {
                             return (
+                                <div style={{margin: '1rem'}}>
                                     <JobCard
                                         key={job.jobId}
                                         picture={job.image.length > 0 ? job.image : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'}
@@ -66,6 +67,7 @@ export default function Homepage(props) {
                                         description={job.description}
                                         datePosted={job.datePosted}
                                     />
+                                </div>
                             )
                         })}
                     </div>
