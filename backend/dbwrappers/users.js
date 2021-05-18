@@ -15,7 +15,7 @@ exports.addUser = addUser
 
 
 async function getUserByEmail(email) {
-    const rows = await query(SQL`SELECT * FROM users WHERE email=${email}`)
+    const rows = await query(SQL`SELECT * FROM users WHERE email=${email}`);
     return rows[0]
 }
 
@@ -45,48 +45,45 @@ async function comapareEmailPassword(req, res, next) {
 exports.comapareEmailPassword = comapareEmailPassword
 
 
-async function editProfile(id, newUsername, oldUsername, first_name, last_name, phone, location, hash) {
-    try {
-        const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newUsername}`)
-        //console.log(checkEmail)
-        if (checkEmail.length > 0) {
-            return "Username already exists"
-        } else {
-            await query(SQL`UPDATE users
+async function changeEmail(id, newEmail, oldEmail) {
+    const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newEmail}`)
+    if (checkEmail.length > 0) {
+        return "Username already exists"
+    } else {
+        await query(SQL`UPDATE users
         SET
-        email = ${newUsername},
-        first_name = ${first_name},
-        last_name = ${last_name},
-        phone = ${phone},
-        location = ${location},
-        password = ${hash}
+        email = ${newEmail}
         WHERE
         id = ${id}`)
 
-            await query(SQL`UPDATE jobs
+        await query(SQL`UPDATE jobs
         SET
-        user_id = ${newUsername}
+        user_id = ${newEmail}
         WHERE
-        user_id= ${oldUsername}`)
-            return "Profile edited succesfully"
-        }
-    } catch (err) {
-        return err
+        user_id = ${oldEmail}`)
     }
+    return "email changed succesfully"
+
 }
 
-exports.editProfile = editProfile
+exports.changeEmail = changeEmail
 
-async function editProfileWithoutPassword(id, newUsername, oldUsername, first_name, last_name, phone, location) {
-    try {
-        const checkEmail = await query(SQL`SELECT * FROM users WHERE email = ${newUsername}`)
-        //console.log(checkEmail)
-        if (checkEmail.length > 0) {
-            return "Username already exists"
-        } else {
-            await query(SQL`UPDATE users
+async function changePassword(id, newPassword) {
+    await query(SQL`UPDATE users
         SET
-        email = ${newUsername},
+        password = ${newPassword}
+        WHERE
+        id = ${id}`)
+
+    return "Password changed succesfully"
+}
+
+exports.changePassword = changePassword
+
+
+async function changeProfile(id, first_name, last_name, phone, location) {
+    await query(SQL`UPDATE users
+        SET
         first_name = ${first_name},
         last_name = ${last_name},
         phone = ${phone},
@@ -94,19 +91,7 @@ async function editProfileWithoutPassword(id, newUsername, oldUsername, first_na
         WHERE
         id = ${id}`)
 
-            await query(SQL`UPDATE jobs
-        SET
-        user_id = ${newUsername}
-        WHERE
-        user_id = ${oldUsername}`)
-
-            return "Profile edited succesfully without password"
-        }
-    } catch (err) {
-        return err
-    }
+    return "Profile edited succedfully"
 }
 
-exports.editProfileWithoutPassword = editProfileWithoutPassword
-
-
+exports.changeProfile = changeProfile

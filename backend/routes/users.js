@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { addUser, getUserByEmail, comapareEmailPassword, editProfileWithoutPassword, editProfile } = require('../dbwrappers/users')
+const { addUser, getUserByEmail, comapareEmailPassword, editProfileWithoutPassword, editProfile, changeEmail, changePassword, changeProfile } = require('../dbwrappers/users')
 const router = express.Router();
 //installed bcrypt 
 
@@ -20,7 +20,7 @@ router.post('/',
                     res.status(200).send({ message: "User created succesfully", email: email, name: name, lastName: lastName })
                 }
             } catch (err) {
-                res.status(400)
+                res.status(400).send(err)
             }
         })
     })
@@ -32,12 +32,14 @@ router.post(
         try {
             const { email } = req.body
             const user = await getUserByEmail(email);
+            delete user.password
             const token = `Bearer ${jwt.sign({ id: user.id }, "123456", {
                 expiresIn: '1d'
             })}`;
             res.status(201);
             res.send({
-                token
+                token,
+                user
             });
         } catch (err) {
             res.setHeader('Access-Control-Allow-Headers: Authorization');
@@ -47,24 +49,43 @@ router.post(
     }
 );
 
-router.post('/edit', async (req, res) => {
-    const { id, email, oldEmail, first_name, last_name, phone, location, password } = req.body
-    try {
-        if (!password) {
-            const response = await editProfileWithoutPassword(id, email,oldEmail, first_name, last_name, phone, location)
-            return res.status(202).send({ message: response })
+router.put('/password',
+    comapareEmailPassword,
+    async (req, res) => {
+        try {
+            const { id, newPassword } = req.body
+            bcrypt.hash(newPassword, 10, async (err, hash) => {
+                if (err) next(err)
+                else {
+                    const response = await changePassword(id, hash)
+                    res.status(200).send({ message: response })
+                }
+            })
+        } catch (err) {
+            res.status(400).send(err)
         }
-        bcrypt.hash(password, 10, async (err, hash) => {
-            if (err) next(err)
-            else {
-                const response = await editProfile(id, email,oldEmail, first_name, last_name, phone, location, hash)
-                res.status(202).send({ message: response })
-            }
-        })
+
+    })
+
+router.put('/email', async (req, res) => {
+    try {
+        const { id, newEmail, oldEmail } = req.body
+        const response = await changeEmail(id, newEmail, oldEmail)
+        res.status(202).send({ message: response })
     } catch (err) {
-        res.status(403).send(err)
+        res.status(400).send(err)
     }
 
+})
+
+router.put('/', async (req, res) => {
+    try {
+        const { id, first_name, last_name, phone, location } = req.body
+        const response = await changeProfile(id, first_name, last_name, phone, location)
+        res.status(202).send({ message: response })
+    } catch (err) {
+        res.status(400).send(err)
+    }
 })
 
 
