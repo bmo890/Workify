@@ -10,7 +10,7 @@ const express = require('express');
 const cors = require('cors');
 const { postgrator } = require('./lib/db');
 const app = express();
-const PORT = 8080;
+const PORT = +process.env.PORT;
 app.use(express.json());
 app.use(cors());
 app.use('/public', express.static('public'));
@@ -25,7 +25,7 @@ postgrator
 	.then((result) => {
 		console.log(`migrated db successfully:`, result);
 		app.listen(PORT, () => {
-			console.log(`Workify Server listening at http://localhost:${PORT}`);
+			console.log(`Workify Server listening at port : ${PORT}`);
 		});
 	})
 	.catch((error) => console.error(error));
