@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@nearform/sql": "^1.8.0",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.25.1",
     "cors": "^2.8.5",
