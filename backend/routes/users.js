@@ -72,8 +72,8 @@ router.put('/password', comapareEmailPassword, async (req, res) => {
 
 router.put('/email', async (req, res) => {
 	try {
-		const { id, newEmail, oldEmail } = req.body;
-		const response = await changeEmail(id, newEmail, oldEmail);
+		const { id, newEmail } = req.body;
+		const response = await changeEmail(id, newEmail);
 		res.status(202).send({ message: response });
 	} catch (err) {
 		res.status(400).send(err);
