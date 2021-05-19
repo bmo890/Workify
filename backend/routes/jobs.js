@@ -62,6 +62,10 @@ router.get('/:jobId', async (req, res, next) => {
 			res.send({ message: 'please specify a job id param' });
 		}
 		const job = await getJob(jobId);
+		if (!job) {
+			res.status(404);
+			res.send({ message: 'job not found' });
+		}
 		const offers = await getJobOffers(jobId);
 		job.offers = offers;
 		res.status(200);
