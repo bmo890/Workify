@@ -29,11 +29,13 @@ async function comapareEmailPassword(req, res, next) {
 			if (result) {
 				next();
 			} else {
-				res.status(401).send({ message: 'incorrect password' });
+				res.status(401);
+				res.send({ message: 'incorrect password' });
 			}
 		});
 	} catch (err) {
-		return err;
+		res.status(500);
+		res.send({ message: 'something went wrong... whoops' });
 	}
 }
 
