@@ -8,7 +8,7 @@ export default function MyOffersPage(props) {
 	const auth = useAuth();
 	useEffect(async () => {
 		try {
-			const response = await getMyOffers(auth.user.id);
+			const { response } = await getMyOffers(auth.user.id);
 			setJobs(response);
 		} catch (err) {
 			setJobs([]);
