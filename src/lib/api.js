@@ -38,10 +38,14 @@ export async function search(searchQuery, location) {
 	return response.data;
 }
 
-export async function postJob(job) {
-	const response = await axios.post(baseUrl + '/jobs/', { job });
+export async function postJob(job, image) {
+	const formData = new FormData()
+	formData.append("image", image)
+	formData.append("job", JSON.stringify(job))
+	const response = await axios.post(baseUrl + "/jobs/", formData)
 	return response.data;
 }
+
 
 export async function getJob(jobId) {
 	const response = axios.get(baseUrl + `/jobs/${jobId}`);
