@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import { useState } from "react";
-// add import from api
+import { signup } from "../lib/api"
 
 Modal.setAppElement("#root");
 
@@ -20,8 +20,8 @@ function SignupModal() {
     const user = {firstName, lastName, phone, email, password, city}
     event.preventDefault();
     if (user) {
-    //   await signup(user);
-    // function name 
+      await signup(user);
+
     } else {
       alert("Passwords don't match");
     }
