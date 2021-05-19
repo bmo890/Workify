@@ -14,6 +14,7 @@ import JobForm from "./Components/JobForm";
 import { useAuth } from "./Components/Auth";
 import SignupModal from "./Components/SignupModal";
 import Login from "./Components/Login";
+import ProfileSettings from "./Components/ProfileSettings"
 
 
 function PrivateRoute({ children, ...rest }) {
@@ -25,13 +26,13 @@ function PrivateRoute({ children, ...rest }) {
         auth.token ? (
           children
         ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location },
+              }}
+            />
+          )
       }
     />
   );
@@ -44,17 +45,24 @@ function App() {
         <NavBar></NavBar>
         <Switch>
           <Route exact path="/">
-            <SignupModal/>
-            <Login/>
-            {/* homepage */}
+            <Homepage></Homepage>
           </Route>
-
           <Route path="/about">
             <About></About>
           </Route>
-          <Route path="/jobform">
+          <PrivateRoute path="/jobform">
             <JobForm></JobForm>
+          </PrivateRoute>
+          <Route path="/job/:jobId">
+            <JobPage></JobPage>
           </Route>
+          <Route path="/login">
+            <SignupModal />
+            <Login />
+          </Route>
+          <PrivateRoute path="/profile">
+            <ProfileSettings></ProfileSettings>
+          </PrivateRoute>
         </Switch>
       </Router>
     </div>

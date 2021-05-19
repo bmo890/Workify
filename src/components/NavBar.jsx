@@ -11,6 +11,7 @@ function NavBar() {
           <Nav.Link href="/about">About Us</Nav.Link>
           <Nav.Link href="/jobform">Post a Job</Nav.Link>  
           <Nav.Link href="/profile">Profile</Nav.Link>
+          <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
       </Navbar>
     </div>
