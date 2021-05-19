@@ -3,7 +3,7 @@ import React from "react";
 function ProfileSettings() {
   return (
 <div>
-<form>
+{/* <form>
         <div class="form-group col-md-6">
           <label for="inputFirstName">First Name</label>
           <input
@@ -81,7 +81,7 @@ function ProfileSettings() {
         <button type="submit" class="btn btn-primary" onClick={displayInfo}>
           Save Changes
         </button>
-      </form>
+      </form> */}
 </div>
   );
 }
