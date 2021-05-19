@@ -99,6 +99,9 @@ router.get('/:id', async (req, res) => {
 			res.send({ message: 'missing id param' });
 		}
 		const response = await getUserById(id);
+		if (!response) {
+			res.status(400).send({ message: 'no user with this id' });
+		}
 		res.status(200).send(response);
 	} catch (err) {
 		res.status(400).send(err);
