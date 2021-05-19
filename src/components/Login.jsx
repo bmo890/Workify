@@ -1,6 +1,7 @@
 import { queryByRole } from "@testing-library/react";
 import { useState } from "react";
-import AuthProvider, { useAuth } from "../Components/Auth";
+import AuthProvider, { useAuth } from "./Auth";
+import { login } from "../../lib/api";
 
 const Login = () => {
   let auth = useAuth();
@@ -10,9 +11,9 @@ const Login = () => {
     event.preventDefault();
     if (email && password) {
       try {
-        // const { token, user } = await login(email, password);
-        // await auth.saveToken(token);
-        // await auth.saveUser(user);
+        const { token, user } = await login(email, password);
+        await auth.saveToken(token);
+        await auth.saveUser(user);
       } catch (err) {
         alert("Bad username and password");
       }

@@ -1,25 +1,34 @@
 import React from "react";
 import { useState } from "react";
+import { useAuth } from "./Components/Auth";
+import { postJob } from "../../lib/api"
 
 function JobForm() {
-    const [title, setTitle] = useState("");
-    const [category, setCategory] = useState("");
-    const [description, setDescription] = useState("");
-    const [location, setLocation] = useState("");
-    const [image, setImage] = useState();
-    
-    // const job = {}
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+//   const [location, setLocation] = useState("");
+  const [image, setImage] = useState();
 
-    const handleOnSubmit = async (event) => {
-        event.preventDefault();
-    }
+  const auth = useAuth();
 
-    // await postJob(job);
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    const job = {
+        userId: auth.user.id, title, description, category
+      };
+      try{
+          await postJob(job, image);
+          alert("Job posted successfully")
+      } catch(error){
+          alert("Error")
+      }
+  };
+  
 
   return (
-<div>
-    
-<form className="jobForm" onSubmit={handleOnSubmit}>
+    <div>
+      <form className="jobForm" onSubmit={handleOnSubmit}>
         <div class="form-group col-md-6">
           <label for="inputTitle">Title</label>
           <input
@@ -56,7 +65,7 @@ function JobForm() {
             }}
           />
         </div>
-        <div class="form-group col-md-6">
+        {/* <div class="form-group col-md-6">
           <label for="location">Location</label>
           <input
             type="location"
@@ -67,23 +76,21 @@ function JobForm() {
               setLocation(event.target.value);
             }}
           />
-        </div>
+        </div> */}
         <div>
-        <label htmlFor="image">Upload image</label>
-        <input
-          onChange={(e) => setImage(e.target.files[0])}
-          type="file"
-          name="picture"
-          id="image"
-        />
-      </div>
-        <button type="submit" class="btn btn-primary" 
-        //  onClick={}
-         >
+          <label htmlFor="image">Upload image</label>
+          <input
+            onChange={(e) => setImage(e.target.files[0])}
+            type="file"
+            name="picture"
+            id="image"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">
           Save Changes
         </button>
       </form>
-</div>
+    </div>
   );
 }
 
