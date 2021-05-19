@@ -84,3 +84,10 @@ async function changeProfile(id, first_name, last_name, phone, location) {
 }
 
 exports.changeProfile = changeProfile;
+
+async function getUserById(id) {
+	const rows = await query(SQL`SELECT * FROM users WHERE id=${id}`);
+	return rows[0];
+}
+
+exports.getUserById = getUserById;

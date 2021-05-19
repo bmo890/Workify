@@ -9,7 +9,8 @@ const {
 	editProfile,
 	changeEmail,
 	changePassword,
-	changeProfile
+	changeProfile,
+	getUserById
 } = require('../dbwrappers/users');
 const router = express.Router();
 //installed bcrypt
@@ -85,6 +86,20 @@ router.put('/', async (req, res) => {
 		const { id, first_name, last_name, phone, location } = req.body;
 		const response = await changeProfile(id, first_name, last_name, phone, location);
 		res.status(202).send({ message: response });
+	} catch (err) {
+		res.status(400).send(err);
+	}
+});
+
+router.get('/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+		if (!id) {
+			res.status(400);
+			res.send({ message: 'missing id param' });
+		}
+		const response = await getUserById(id);
+		res.status(200).send(response);
 	} catch (err) {
 		res.status(400).send(err);
 	}
