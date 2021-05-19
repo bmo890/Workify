@@ -1,5 +1,5 @@
 const express = require('express');
-const { addJob, getJobs, getJob, getJobOffers, searchJobs } = require('../dbwrappers/jobs');
+const { addJob, getJobs, getJob, getJobOffers, searchJobs, addOffer } = require('../dbwrappers/jobs');
 const { uploadToCloud } = require('../lib/cloudinary');
 const { upload } = require('../middlewares/multipart');
 const parseBody = require('../middlewares/parseMiddleware');
@@ -67,6 +67,21 @@ router.get('/:jobId', async (req, res, next) => {
 		job.offers = offers;
 		res.status(200);
 		res.send({ job });
+	} catch (err) {
+		next(err);
+	}
+});
+
+router.post('/offers', async (req, res, next) => {
+	try {
+		const { offer } = req.body;
+		if (!offer) {
+			res.status(400);
+			res.send({ message: 'missing offer object' });
+		}
+		await addOffer(offer.userId, offer.jobId, +offer.price);
+		res.status(201);
+		res.send();
 	} catch (err) {
 		next(err);
 	}
