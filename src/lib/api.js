@@ -44,7 +44,7 @@ export async function postJob(job) {
 }
 
 export async function getJob(jobId) {
-	const response = axios.get(baseUrl + `/jobs/${jobId}`);
+	const response = await axios.get(baseUrl + `/jobs/${jobId}`);
 	return response.data;
 }
 

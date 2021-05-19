@@ -40,16 +40,20 @@ export default function Homepage(props) {
 
     }
 
-    useEffect(async () => {
+    
+        useEffect(async () => {
+            if (auth.user){
         console.log('hi')
-        const localJobs = await getJobList(auth.user.location) 
-        console.log(localJobs.jobs) 
-        setLocalJobs(localJobs.jobs)
-       
+        const localJobsList = await getJobList(auth.user.location) 
+        console.log(localJobsList.jobs) 
+        setLocalJobs(localJobsList.jobs)
+        setSearchResults(localJobsList.jobs)
+            }
     }, [])
+
    
 
-    
+console.log(localJobs)
 
     return (
         <div>
@@ -100,7 +104,7 @@ export default function Homepage(props) {
                                 <div style={{margin: '1rem'}}>
                                     <JobCard
                                         key={job.jobId}
-                                        picture={job.image.length > 0 ? job.image : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'}
+                                        picture={job.picture ? job.picture : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'}
                                         jobName={job.title}
                                         description={job.description}
                                         datePosted={job.datePosted}

@@ -5,8 +5,9 @@ import JobCardCarousel from './JobCardCarousel'
 
 export default function JobCard(props) {
     return (<div>
-        <Card style={{ width: '18rem' }}>
-            <JobCardCarousel picture={props.picture} />
+        <Card style={{ width: '15rem', minHeight: '25rem' }}>
+            {/* <JobCardCarousel picture={props.picture} /> */}
+            <img src={props.picture} style={{ maxWidth: '10rem', maxHeight: '12rem'}} />
             <Card.Body>
                 <Card.Title>{props.jobName}</Card.Title>
                 <Card.Text style={{ fontStyle: 'italic' }}>Listed {props.datePosted}</Card.Text>
