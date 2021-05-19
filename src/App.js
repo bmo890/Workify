@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './Homepage';
 import JobPage from './JobPage';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import About from './Components/About';
 import NavBar from './Components/NavBar';
 import JobForm from './Components/JobForm';
 import AuthProvider, { useAuth } from './Components/Auth';
@@ -11,6 +10,9 @@ import SignupModal from './Components/SignupModal';
 import Login from './Components/Login';
 import ProfileSettings from './Components/profileSettings/ProfileSettings';
 import Logout from './Components/Logout';
+import ChangePassword from './Components/profileSettings/ChangePassword';
+import ChangeEmail from './Components/profileSettings/ChangeEmail';
+import AboutUs from './Components/AboutUs'
 
 function PrivateRoute({ children, ...rest }) {
 	let auth = useAuth();
@@ -46,7 +48,7 @@ function App() {
 							<Homepage />
 						</Route>
 						<Route path="/about">
-							<About />
+							<AboutUs />
 						</Route>
 						<PrivateRoute path="/jobform">
 							<JobForm />
@@ -58,6 +60,16 @@ function App() {
 							<SignupModal />
 							<Login />
 						</Route>
+
+						{/* Elad's Changes */}
+						<Route path="/profile/changePass">
+							<ChangePassword />
+						</Route>
+						<Route path="/profile/changeEmail">
+							<ChangeEmail />
+						</Route>
+						{/* Elad's Changes */}
+
 						<PrivateRoute path="/profile">
 							<ProfileSettings />
 						</PrivateRoute>

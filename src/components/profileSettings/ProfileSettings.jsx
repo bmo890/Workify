@@ -1,34 +1,77 @@
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
+import { changeProfile } from "../../lib/api";
+import { useAuth } from "../Auth";
 
 function ProfileSettings() {
+  const auth = useAuth();
+  const userId = auth.user.id;
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await changeProfile(
+        userId,
+        firstName,
+        lastName,
+        phone,
+        location
+      );
+      alert("User details changed!");
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <div className="d-flex">
       <div
-        style={{ height: "95vh" }}
+        style={{ height: "88vh" }}
         className="container col-lg-9 d-flex align-items-center justify-content-center shadow p-3 mb-2 mt-2 bg-body rounded">
-        <Form className="col-lg-8">
+        <Form onSubmit={handleSubmit} className="col-lg-8">
           <h2 className="text-center display-4">Profile Settings</h2>
           <Form.Group>
-            <Form.File label="Upload profile picture here" />
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              className="mb-2"
+              type="text"
+              placeholder="Change name"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" placeholder="Change name" />
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              className="mb-2"
+              type="text"
+              placeholder="Change phone"
+              onChange={(e) => setLastName(e.target.value)}
+            />
           </Form.Group>
           <Form.Group>
             <Form.Label>Phone</Form.Label>
-            <Form.Control type="text" placeholder="Change phone" />
+            <Form.Control
+              className="mb-2"
+              type="text"
+              placeholder="Change location"
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </Form.Group>
           <Form.Group>
-            <Form.Label>City</Form.Label>
-            <Form.Control type="text" placeholder="Change location" />
+            <Form.Label>Location</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(e) => setLocation(e.target.value)}
+            />
           </Form.Group>
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" rows={3} />
-          </Form.Group>
+          <br />
           <div className="text-center">
             <Button variant="primary" type="submit">
               Save changes
@@ -37,9 +80,9 @@ function ProfileSettings() {
         </Form>
       </div>
       <div className="container col-lg-2 d-flex flex-column align-items-center justify-content-center shadow p-3 mb-2 mt-2 bg-body rounded">
-        <Link to={"/profileSettings/changePassword"}>Change password?</Link>
+        <Link to={"/profile/changePass"}>Change password?</Link>
 
-        <Link to={"/profileSettings/changeEmail"}>Change email?</Link>
+        <Link to={"/profile/changeEmail"}>Change email?</Link>
       </div>
     </div>
   );
