@@ -30,7 +30,7 @@ const AuthProvider = (props) => {
 
 	const removeToken = async () => {
 		setToken();
-		await localforage.removeItem(tokenKey, token);
+		await localforage.removeItem(tokenKey);
 	};
 	useEffect(() => {
 		const awaitUser = async () => {
@@ -55,8 +55,8 @@ const AuthProvider = (props) => {
 	};
 
 	const removeUser = async () => {
-		setUser();
-		await localforage.removeItem(userKey, user);
+		setUser(null);
+		await localforage.removeItem(userKey);
 	};
 
 	return (

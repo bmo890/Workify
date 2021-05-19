@@ -10,10 +10,10 @@ import AuthProvider, { useAuth } from './Components/Auth';
 import SignupModal from './Components/SignupModal';
 import Login from './Components/Login';
 import ProfileSettings from './Components/profileSettings/ProfileSettings';
+import Logout from './Components/Logout';
 
 function PrivateRoute({ children, ...rest }) {
 	let auth = useAuth();
-	console.log(auth);
 	if (!auth.isInitiallyLoaded) {
 		return <div />;
 	}
@@ -60,6 +60,9 @@ function App() {
 						</Route>
 						<PrivateRoute path="/profile">
 							<ProfileSettings />
+						</PrivateRoute>
+						<PrivateRoute path="/logout">
+							<Logout />
 						</PrivateRoute>
 					</Switch>
 				</Router>
