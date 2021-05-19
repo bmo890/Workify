@@ -26,8 +26,7 @@ async function comapareEmailPassword(req, res, next) {
 			return;
 		}
 		bcrypt.compare(password, user.password, function(err, result) {
-			if (err) next(err);
-			if (result) {
+			if (result && !err) {
 				next();
 			} else {
 				res.status(401);
