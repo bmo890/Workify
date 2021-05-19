@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './Homepage';
 import JobPage from './JobPage';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import About from './Components/About';
 import NavBar from './Components/NavBar';
 import JobForm from './Components/JobForm';
 import SignupModal from './Components/SignupModal';
@@ -12,6 +11,9 @@ import ProfileSettings from './Components/profileSettings/ProfileSettings';
 import Logout from './Components/Logout';
 import { useAuth } from './Components/Auth';
 import { useEffect } from 'react';
+import ChangePassword from './Components/profileSettings/ChangePassword';
+import ChangeEmail from './Components/profileSettings/ChangeEmail';
+import AboutUs from './Components/AboutUs'
 
 function PrivateRoute({ children, ...rest }) {
 	let auth = useAuth();
