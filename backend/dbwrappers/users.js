@@ -21,7 +21,8 @@ async function comapareEmailPassword(req, res, next) {
 		const { email, password } = req.body;
 		const user = await getUserByEmail(email);
 		if (!user) {
-			res.status(404).send({ message: 'user not found with tihs email' });
+			res.status(404);
+			res.send({ message: 'user not found with tihs email' });
 			return;
 		}
 		bcrypt.compare(password, user.password, function(err, result) {
