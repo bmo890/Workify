@@ -14,6 +14,7 @@ export default function MyOffersPage(props) {
 			setJobs([]);
 		}
 	}, []);
+
 	return (
 		<div>
 			<h1>Your offers</h1>
