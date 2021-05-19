@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import JobCard from './Components/JobCard'
 
 
+
 export default function Homepage(props) {
     const jobsList = [
         { jobId: 1, title: 'Job 1', description: 'This is a description of job 1', datePosted: '1 day ago', image: [] },
@@ -19,14 +20,14 @@ export default function Homepage(props) {
         <div>
             <h1>Workify Homepage</h1>
             {/* Search Bar */}
-            <div style={{ display: 'flex', justifyContent: 'center' }} className="container">
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '5rem 10rem 0 10rem'}} className="container">
                 <div style={{ display: 'flex', justifyContent: 'center' }} className="container">
                     <input className="form-control" type="search" placeholder="Search by job type in your city" onChange={(event) => handleBasicType(event.target.value)} />
                     <button disabled={advancedSearch} type="button" className="btn btn-primary">Search</button>
                 </div>
             </div>
             {/* Advanced Options */}
-            <div style={{ display: 'flex', justifyContent: 'space-between' }} className="container">
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 10rem 0 10rem' }} className="container">
                 <div hidden={!advancedSearch} style={{ marginLeft: '1rem', border: '1px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }} className="container">
                     <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>Advanced 1</div>
@@ -56,7 +57,7 @@ export default function Homepage(props) {
             <div>
                 {!searchResults ? 'No results found. Try another search.'
                     :
-                    <div style={{ display: 'flex', flexWrap: 'wrap' }} className="container">
+                    <div style={{ display: 'flex',justifyContent:'center', flexWrap: 'wrap' }} className="container">
                         {searchResults.map((job) => {
                             return (
                                 <div style={{margin: '1rem'}}>
