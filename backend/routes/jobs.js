@@ -1,5 +1,5 @@
 const express = require('express');
-const { addJob, getJobs, getJob, getJobOffers, searchJobs, addOffer, getJobsByUserId } = require('../dbwrappers/jobs');
+const { addJob, getJobs, getJob, getJobOffers, searchJobs, addOffer, getJobsByUserId, getMyOffers} = require('../dbwrappers/jobs');
 const { uploadToCloud } = require('../lib/cloudinary');
 const { upload } = require('../middlewares/multipart');
 const parseBody = require('../middlewares/parseMiddleware');
@@ -97,9 +97,20 @@ router.get('/my/:userId', async (req, res, next) => {
 			res.status(400).send({message : 'missing userId Param'})
 		}
 		const response = await getJobsByUserId(userId)
-		if(!response){
-			res.status(404).send({message: 'jobs by user id not found'})
+		res.status(200).send({response})
+	} catch(err){
+		next(err)
+	}
+}
+)
+
+router.get('/offers/:userId', async(req, res, next) =>{
+	try{
+		const {userId} = req.params
+		if(!userId){
+			res.status(400).send({ message: 'missing userId Param' })
 		}
+		const response = await getMyOffers(userId)
 		res.status(200).send({response})
 	} catch(err){
 		next(err)
