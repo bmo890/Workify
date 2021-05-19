@@ -14,7 +14,7 @@ import JobForm from "./Components/JobForm";
 import { useAuth } from "./Components/Auth";
 import SignupModal from "./Components/SignupModal";
 import Login from "./Components/Login";
-import ProfileSettings from "./Components/ProfileSettings"
+import ProfileSettings from "./Components/profileSettings/ProfileSettings"
 
 
 function PrivateRoute({ children, ...rest }) {
