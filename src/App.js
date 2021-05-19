@@ -13,7 +13,9 @@ import { useAuth } from './Components/Auth';
 import { useEffect } from 'react';
 import ChangePassword from './Components/profileSettings/ChangePassword';
 import ChangeEmail from './Components/profileSettings/ChangeEmail';
-import AboutUs from './Components/AboutUs'
+import AboutUs from './Components/AboutUs';
+import MyJobsPage from './MyJobsPage';
+import MyOffersPage from './MyOffersPage';
 
 function PrivateRoute({ children, ...rest }) {
 	let auth = useAuth();
@@ -70,6 +72,12 @@ function App() {
 					</Route>
 					<PrivateRoute path="/profile">
 						<ProfileSettings />
+					</PrivateRoute>
+					<PrivateRoute path="/myjobs">
+						<MyJobsPage />
+					</PrivateRoute>
+					<PrivateRoute path="/myoffers">
+						<MyOffersPage />
 					</PrivateRoute>
 					<PrivateRoute path="/logout">
 						<Logout />

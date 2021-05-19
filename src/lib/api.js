@@ -39,16 +39,23 @@ export async function search(searchQuery, location) {
 }
 
 export async function postJob(job, image) {
-	const formData = new FormData()
-	formData.append("image", image)
-	formData.append("job", JSON.stringify(job))
-	const response = await axios.post(baseUrl + "/jobs/", formData)
+	const formData = new FormData();
+	formData.append('image', image);
+	formData.append('job', JSON.stringify(job));
+	const response = await axios.post(baseUrl + '/jobs/', formData);
 	return response.data;
 }
 
-
 export async function getJob(jobId) {
 	const response = await axios.get(baseUrl + `/jobs/${jobId}`);
+	return response.data;
+}
+export async function getMyJobs(userId) {
+	const response = await axios.get(baseUrl + `/jobs/my/${userId}`);
+	return response.data;
+}
+export async function getMyOffers(userId) {
+	const response = await axios.get(baseUrl + `/jobs/offers/${userId}`);
 	return response.data;
 }
 

@@ -7,7 +7,8 @@ export const AuthContext = createContext({
 	saveToken: async (token) => {},
 	removeToken: async () => {},
 	saveUser: async (user) => {},
-	removeUser: async () => {}
+	removeUser: async () => {},
+	user: null
 });
 
 const tokenKey = 'userToken';
