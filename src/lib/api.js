@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'https://mighty-wave-54695.herokuapp.com';
 
 function getAuthConfig(token) {
 	return {
