@@ -3,12 +3,8 @@ const { query } = require('../lib/db');
 const bcrypt = require('bcrypt');
 
 async function addUser(email, passwordHash, name, lastName, phone_number, location) {
-	try {
-		await query(SQL`INSERT INTO users (email, password, first_name, last_name, phone, location)
+	await query(SQL`INSERT INTO users (email, password, first_name, last_name, phone, location)
          VALUES (${email}, ${passwordHash}, ${name}, ${lastName}, ${phone_number}, ${location} )`);
-	} catch (err) {
-		return err;
-	}
 }
 
 exports.addUser = addUser;

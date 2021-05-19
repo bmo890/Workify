@@ -16,7 +16,7 @@ const router = express.Router();
 //installed bcrypt
 
 router.post('/', async (req, res) => {
-	const { email, password, name, lastName, phone, location } = req.body;
+	const { email, password, firstName, lastName, phone, location } = req.body;
 	bcrypt.hash(password, 10, async (err, hash) => {
 		try {
 			if (err) console.error(err);
@@ -25,12 +25,11 @@ router.post('/', async (req, res) => {
 				if (user) {
 					res.status(403).send({ message: 'User already exists' });
 				}
-				await addUser(email, hash, name, lastName, phone, location);
-				res
-					.status(200)
-					.send({ message: 'User created succesfully', email: email, name: name, lastName: lastName });
+				await addUser(email, hash, firstName, lastName, phone, location);
+				res.status(201).send();
 			}
 		} catch (err) {
+			console.log(err);
 			res.status(400).send(err);
 		}
 	});
