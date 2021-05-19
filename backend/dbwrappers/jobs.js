@@ -62,3 +62,11 @@ async function getJobsByUserId(userId) {
 	return result;
 }
 exports.getJobsByUserId = getJobsByUserId;
+
+async function getMyOffers(userId) {
+	const result = await query(
+		SQL`SELECT jobs.id AS jobId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture FROM offers JOIN jobs ON offers.job_id=jobs.id WHERE offers.user_id=${userId}`
+	);
+	return result;
+}
+exports.getMyOffers = getMyOffers;
