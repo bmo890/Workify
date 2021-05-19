@@ -19,7 +19,7 @@ exports.getJobs = getJobs;
 
 async function getJob(jobId) {
 	const result = await query(
-		SQL`SELECT user_id AS userId, title, description, category, picture_url AS picture FROM jobs WHERE id=${jobId}`
+		SQL`SELECT user_id AS userId, title, description, category, picture_url AS picture, created_date AS createdDate FROM jobs WHERE id=${jobId}`
 	);
 	return result[0];
 }
@@ -43,3 +43,11 @@ async function searchJobs(searchQuery, location) {
 	return result;
 }
 exports.searchJobs = searchJobs;
+
+async function addOffer(userId, jobId, price) {
+	await query(
+		SQL`INSERT INTO offers (user_id, job_id, price)
+		VALUES (${userId}, ${jobId}, ${price})`
+	);
+}
+exports.addOffer = addOffer;

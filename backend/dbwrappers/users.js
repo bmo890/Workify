@@ -3,12 +3,8 @@ const { query } = require('../lib/db');
 const bcrypt = require('bcrypt');
 
 async function addUser(email, passwordHash, name, lastName, phone_number, location) {
-	try {
-		await query(SQL`INSERT INTO users (email, password, first_name, last_name, phone, location)
+	await query(SQL`INSERT INTO users (email, password, first_name, last_name, phone, location)
          VALUES (${email}, ${passwordHash}, ${name}, ${lastName}, ${phone_number}, ${location} )`);
-	} catch (err) {
-		return err;
-	}
 }
 
 exports.addUser = addUser;
@@ -84,3 +80,12 @@ async function changeProfile(id, first_name, last_name, phone, location) {
 }
 
 exports.changeProfile = changeProfile;
+
+async function getUserById(id) {
+	const rows = await query(
+		SQL`SELECT id,email,first_name AS firstName,last_name AS lastName, phone, location FROM users WHERE id=${id}`
+	);
+	return rows[0];
+}
+
+exports.getUserById = getUserById;

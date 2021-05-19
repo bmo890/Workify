@@ -1,5 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import { postJob } from "../lib/api";
+import { useAuth } from "../Components/Auth";
+
 
 function JobForm() {
     const [title, setTitle] = useState("");
@@ -7,15 +10,21 @@ function JobForm() {
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
     const [image, setImage] = useState();
+
+    const auth = useAuth();
     
-    // const job = {}
-
     const handleOnSubmit = async (event) => {
-        event.preventDefault();
-    }
-
-    // await postJob(job);
-
+      event.preventDefault();
+      const job = {
+          userId: auth.user.id, title, description, category
+        };
+        try{
+            await postJob(job, image);
+            alert("Job posted successfully")
+        } catch(error){
+            alert("Error")
+        }
+    };
   return (
 <div>
     

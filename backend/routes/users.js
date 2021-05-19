@@ -9,13 +9,14 @@ const {
 	editProfile,
 	changeEmail,
 	changePassword,
-	changeProfile
+	changeProfile,
+	getUserById
 } = require('../dbwrappers/users');
 const router = express.Router();
 //installed bcrypt
 
 router.post('/', async (req, res) => {
-	const { email, password, name, lastName, phone, location } = req.body;
+	const { email, password, firstName, lastName, phone, location } = req.body;
 	bcrypt.hash(password, 10, async (err, hash) => {
 		try {
 			if (err) console.error(err);
@@ -24,12 +25,11 @@ router.post('/', async (req, res) => {
 				if (user) {
 					res.status(403).send({ message: 'User already exists' });
 				}
-				await addUser(email, hash, name, lastName, phone, location);
-				res
-					.status(200)
-					.send({ message: 'User created succesfully', email: email, name: name, lastName: lastName });
+				await addUser(email, hash, firstName, lastName, phone, location);
+				res.status(201).send();
 			}
 		} catch (err) {
+			console.log(err);
 			res.status(400).send(err);
 		}
 	});
@@ -85,6 +85,23 @@ router.put('/', async (req, res) => {
 		const { id, first_name, last_name, phone, location } = req.body;
 		const response = await changeProfile(id, first_name, last_name, phone, location);
 		res.status(202).send({ message: response });
+	} catch (err) {
+		res.status(400).send(err);
+	}
+});
+
+router.get('/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+		if (!id) {
+			res.status(400);
+			res.send({ message: 'missing id param' });
+		}
+		const response = await getUserById(id);
+		if (!response) {
+			res.status(400).send({ message: 'no user with this id' });
+		}
+		res.status(200).send(response);
 	} catch (err) {
 		res.status(400).send(err);
 	}
