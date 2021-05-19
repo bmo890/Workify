@@ -48,9 +48,7 @@ function App() {
 					<Route exact path="/">
 						<Homepage />
 					</Route>
-					<Route path="/about">
-						<About />
-					</Route>
+
 					<PrivateRoute path="/jobform">
 						<JobForm />
 					</PrivateRoute>
@@ -60,6 +58,15 @@ function App() {
 					<Route path="/login">
 						<SignupModal />
 						<Login />
+					</Route>
+					<Route path="/about">
+						<AboutUs />
+					</Route>
+					<Route path="/profile/changePass">
+						<ChangePassword />
+					</Route>
+					<Route path="/profile/changeEmail">
+						<ChangeEmail />
 					</Route>
 					<PrivateRoute path="/profile">
 						<ProfileSettings />
