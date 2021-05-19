@@ -55,6 +55,9 @@ function App() {
           <Route path="/jobform">
             <JobForm></JobForm>
           </Route>
+          <Route path="/search">
+            <Homepage></Homepage>
+          </Route>
         </Switch>
       </Router>
     </div>
