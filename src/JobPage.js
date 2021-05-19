@@ -31,7 +31,7 @@ export default function JobPage(props) {
         <h4>Added: {timeStamp}</h4>
         <h4>Category: {jobInfo.category}</h4>
         <div style={{ width: '50rem' }}>
-            <img style={{ maxWidth: '40rem' }} src={jobInfo.picture ? jobInfo.picture : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'} />
+            <img style={{ maxWidth: '20rem' }} src={jobInfo.picture ? jobInfo.picture : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'} />
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '1rem' }}>
                 <div>{jobInfo.description}</div>
                 <Button variant="primary" style={{ margin: '1rem 15rem 0 15rem' }}>Make An Offer</Button>
