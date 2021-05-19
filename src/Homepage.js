@@ -1,107 +1,77 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import JobCard from './Components/JobCard'
-import { getJobList } from './lib/api'
+import { getJobList, search } from './lib/api'
 import { useAuth } from './Components/Auth'
 
 
 
 export default function Homepage(props) {
-    // const jobsList = [
-    //     { jobId: 1, title: 'Job 1', description: 'This is a description of job 1', datePosted: '1 day ago', image: [] },
-    //     { jobId: 2, title: 'Job 2', description: 'This is a description of job 2', datePosted: '2 days ago', image: [] },
-    //     { jobId: 3, title: 'Job 3', description: 'This is a description of job 3', datePosted: '3 days ago', image: [] },
-    // ]
 
-    const [advancedSearch, setAdvancedSearch] = useState(false)
-    const [basicLocation, setBasicLocation] = useState("")
-    
-    const handleBasicLocation = (value) => { 
-        setBasicLocation(value) 
-    }
+    const [searchParams, setSearchParams] = useState("")
+
     const [searchResults, setSearchResults] = useState(false)
-    const [localJobs, setLocalJobs] = useState([])
+    const [localJobs, setLocalJobs] = useState(false)
     const [resultsLength, setResultsLength] = useState(false)
-
+    const [noneFound, setNoneFound] = useState(false)
     const auth = useAuth()
-    console.log(auth.user)
 
+    const handleSearchParams = (value) => {
+        setSearchParams(value)
+    }
 
-    const handleBasicSearchSubmit = async (event) => {
+    const handleSearchSubmit = async (event) => {
         event.preventDefault()
+        setNoneFound(false)
+        setLocalJobs(false)
         setSearchResults(false)
         setResultsLength(false)
-        try {const jobListByLocation = await getJobList(basicLocation)
-        console.log(jobListByLocation)
-        setResultsLength(jobListByLocation.jobs.length)
+        let location = auth.user ? auth.user.location : 'tel aviv'
+        try {
+            const jobList = await search(searchParams, location)
+            console.log(jobList.jobs)
+            setSearchResults(jobList.jobs)
+            setResultsLength(jobList.jobs.length)
+            if (jobList.jobs.length === 0) {
+                setNoneFound(true)
+            }
+            
         } catch (err) {
             console.log(err)
         }
-
     }
 
-    
-        useEffect(async () => {
-            if (auth.user){
-        console.log('hi')
-        const localJobsList = await getJobList(auth.user.location) 
-        console.log(localJobsList.jobs) 
-        setLocalJobs(localJobsList.jobs)
-        setSearchResults(localJobsList.jobs)
-            }
+    useEffect(async () => {
+        if (auth.user) {
+            const localJobsList = await getJobList(auth.user.location)
+            console.log(localJobsList.jobs.length)
+            setLocalJobs(localJobsList.jobs)
+        }
     }, [])
-
-   
-
-console.log(localJobs)
 
     return (
         <div>
             <h1>Workify Homepage</h1>
             {/* Search Bar */}
-            <div style={{ display: 'flex', justifyContent: 'center', padding: '5rem 10rem 0 10rem'}} className="container">
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '5rem 10rem 0 10rem' }} className="container">
                 <div style={{ display: 'flex', justifyContent: 'center' }} className="container">
-                    <input className="form-control" type="search" placeholder="Search jobs by city" onChange={(event) => handleBasicLocation(event.target.value)} />
-                    <button disabled={advancedSearch || basicLocation.length===0} type="button" className="btn btn-primary" onClick={(event) => handleBasicSearchSubmit(event)}>Search</button>
-                </div>
-            </div>
-            {/* Advanced Options */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 10rem 0 10rem' }} className="container">
-                <div hidden={!advancedSearch} style={{ marginLeft: '1rem', border: '1px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }} className="container">
-                    <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>Advanced 1</div>
-                        <input></input>
-                    </div>
-                    <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>Advanced 2</div>
-                        <input></input>
-                    </div>
-                    <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>Advanced 3</div>
-                        <input></input>
-                    </div>
-                    <button disabled={!advancedSearch} type="button" className="btn btn-primary">Search</button>
-                </div>
-                {/* Advanced Search Toggle */}
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }} className="container">
-                    <Form.Check
-                        type="switch"
-                        id="custom-switch"
-                        label="Advanced Search"
-                        onClick={() => setAdvancedSearch(!advancedSearch)}
-                    />
+                    <input className="form-control" type="search" placeholder="Search jobs by city" onChange={(event) => handleSearchParams(event.target.value)} />
+                    <button disabled={searchParams.length === 0} type="button" className="btn btn-primary" onClick={(event) => handleSearchSubmit(event)}>Search</button>
                 </div>
             </div>
             {/* Job Card Display */}
             <div hidden={!resultsLength}>
-                {resultsLength} job found!
+                {resultsLength} job found near you!
+            </div>
+            <div hidden={!noneFound}>
+                No Jobs Found Near You
             </div>
             <div>
                 {searchResults &&
-                    <div style={{ display: 'flex',justifyContent:'center', flexWrap: 'wrap' }} className="container">
+                    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="container">
                         {searchResults.map((job) => {
                             return (
-                                <div style={{margin: '1rem'}}>
+                                <div style={{ margin: '1rem' }}>
                                     <JobCard
                                         key={job.jobId}
                                         picture={job.picture ? job.picture : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'}
@@ -112,6 +82,28 @@ console.log(localJobs)
                                 </div>
                             )
                         })}
+                    </div>
+                }
+            </div>
+            <div>
+                {localJobs &&
+                    <div>
+                        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="container">
+                            {localJobs.map((job) => {
+                                return (
+                                    <div style={{ margin: '1rem' }}>
+                                        <JobCard
+                                            key={job.jobId}
+                                            id={job.jobId}
+                                            picture={job.picture ? job.picture : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'}
+                                            jobName={job.title}
+                                            description={job.description}
+                                            datePosted={job.datePosted}
+                                        />
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 }
             </div>
