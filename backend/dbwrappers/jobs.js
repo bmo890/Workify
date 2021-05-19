@@ -54,3 +54,11 @@ async function addOffer(userId, jobId, price) {
 	);
 }
 exports.addOffer = addOffer;
+
+async function getJobsByUserId(userId) {
+	const result = await query(
+		SQL`SELECT jobs.id AS jobId, user_id AS userId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture FROM jobs JOIN users ON jobs.user_id = users.id WHERE users.id=${userId} ORDER BY jobs.created_date desc`
+	);
+	return result;
+}
+exports.getJobsByUserId = getJobsByUserId;
