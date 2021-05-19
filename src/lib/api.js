@@ -28,6 +28,11 @@ export async function getJobList(location) {
 	return response.data;
 }
 
+export async function getUserById(userId) {
+	const response = await axios.get(baseUrl + `/users/${userId}`);
+	return response.data;
+}
+
 export async function search(searchQuery, location) {
 	const response = await axios.get(baseUrl + `/jobs/search?query=${searchQuery}&location=${location}`);
 	return response.data;
