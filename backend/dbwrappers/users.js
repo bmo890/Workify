@@ -86,7 +86,9 @@ async function changeProfile(id, first_name, last_name, phone, location) {
 exports.changeProfile = changeProfile;
 
 async function getUserById(id) {
-	const rows = await query(SQL`SELECT * FROM users WHERE id=${id}`);
+	const rows = await query(
+		SQL`SELECT id,email,first_name AS firstName,last_name AS lastName, phone, location FROM users WHERE id=${id}`
+	);
 	return rows[0];
 }
 
