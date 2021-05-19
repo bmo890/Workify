@@ -24,6 +24,12 @@ function ProfileSettings() {
         phone,
         location
       );
+      auth.saveUser({
+        first_name: firstName,
+        last_name: lastName,
+        location,
+        phone,
+      });
       alert("User details changed!");
     } catch (error) {
       alert(error);
@@ -42,7 +48,7 @@ function ProfileSettings() {
             <Form.Control
               className="mb-2"
               type="text"
-              placeholder="Change name"
+              placeholder={auth.user.first_name}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </Form.Group>
@@ -51,7 +57,7 @@ function ProfileSettings() {
             <Form.Control
               className="mb-2"
               type="text"
-              placeholder="Change phone"
+              placeholder={auth.user.last_name}
               onChange={(e) => setLastName(e.target.value)}
             />
           </Form.Group>
@@ -60,13 +66,14 @@ function ProfileSettings() {
             <Form.Control
               className="mb-2"
               type="text"
-              placeholder="Change location"
+              placeholder={auth.user.phone}
               onChange={(e) => setPhone(e.target.value)}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label>Location</Form.Label>
             <Form.Control
+              placeholder={auth.user.location}
               type="text"
               onChange={(e) => setLocation(e.target.value)}
             />
