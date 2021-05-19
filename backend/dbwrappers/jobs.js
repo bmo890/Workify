@@ -1,11 +1,14 @@
 const SQL = require('@nearform/sql');
 const { query } = require('../lib/db');
+const { v4: uuidv4 } = require('uuid');
 
 async function addJob(job, picture_url) {
+	const jobId = uuidv4();
 	await query(
-		SQL`INSERT INTO jobs (user_id, title, description, category, picture_url)
-		VALUES (${job.userId}, ${job.title}, ${job.description}, ${job.category},${picture_url})`
+		SQL`INSERT INTO jobs (id, user_id, title, description, category, picture_url)
+		VALUES (${jobId},${job.userId}, ${job.title}, ${job.description}, ${job.category},${picture_url})`
 	);
+	return jobId;
 }
 exports.addJob = addJob;
 

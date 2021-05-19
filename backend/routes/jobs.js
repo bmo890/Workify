@@ -10,12 +10,11 @@ router.post('/', upload('jobs').single('image'), parseBody('job'), async (req, r
 	try {
 		const { job } = req.body;
 		const { path } = req.file;
-		console.log(job);
 		const result = path ? await uploadToCloud(path) : null;
-		await addJob(job, result.secure_url);
+		const jobId = await addJob(job, result.secure_url);
 		path && fs.unlinkSync(path);
 		res.status(201);
-		res.send();
+		res.send({ jobId });
 	} catch (err) {
 		console.log(err);
 		res.status(500);
