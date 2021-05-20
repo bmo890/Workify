@@ -14,7 +14,7 @@ exports.addJob = addJob;
 
 async function getJobs(location) {
 	const result = await query(
-		SQL`SELECT jobs.id AS jobId, user_id AS userId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture FROM jobs JOIN users ON jobs.user_id = users.id WHERE users.location=${location} ORDER BY jobs.created_date desc`
+		SQL`SELECT jobs.id AS jobId, user_id AS userId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture, jobs.created_date AS createdDate FROM jobs JOIN users ON jobs.user_id = users.id WHERE users.location=${location} ORDER BY jobs.created_date desc`
 	);
 	return result;
 }
@@ -39,7 +39,7 @@ exports.getJobOffers = getJobOffers;
 async function searchJobs(searchQuery, location) {
 	const sqlQuery = SQL``;
 	sqlQuery.append(
-		SQL`SELECT jobs.id AS jobId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture FROM jobs JOIN users ON jobs.user_id=users.id WHERE users.location='${location}' AND (title LIKE '%${searchQuery}%' OR title LIKE '%${searchQuery}%' OR category LIKE '%${searchQuery}%') ORDER BY jobs.created_date DESC`,
+		SQL`SELECT jobs.id AS jobId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture, jobs.created_date AS createdDate FROM jobs JOIN users ON jobs.user_id=users.id WHERE users.location='${location}' AND (title LIKE '%${searchQuery}%' OR title LIKE '%${searchQuery}%' OR category LIKE '%${searchQuery}%') ORDER BY jobs.created_date DESC`,
 		{ unsafe: true }
 	);
 	const result = await query(sqlQuery);
@@ -57,7 +57,7 @@ exports.addOffer = addOffer;
 
 async function getJobsByUserId(userId) {
 	const result = await query(
-		SQL`SELECT jobs.id AS jobId, user_id AS userId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture FROM jobs JOIN users ON jobs.user_id = users.id WHERE users.id=${userId} ORDER BY jobs.created_date desc`
+		SQL`SELECT jobs.id AS jobId, user_id AS userId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture, jobs.created_date AS createdDate FROM jobs JOIN users ON jobs.user_id = users.id WHERE users.id=${userId} ORDER BY jobs.created_date desc`
 	);
 	return result;
 }
@@ -65,7 +65,7 @@ exports.getJobsByUserId = getJobsByUserId;
 
 async function getMyOffers(userId) {
 	const result = await query(
-		SQL`SELECT jobs.id AS jobId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture FROM offers JOIN jobs ON offers.job_id=jobs.id WHERE offers.user_id=${userId}`
+		SQL`SELECT jobs.id AS jobId, jobs.title, jobs.description, jobs.category, jobs.picture_url AS picture, jobs.created_date AS createdDate FROM offers JOIN jobs ON offers.job_id=jobs.id WHERE offers.user_id=${userId}`
 	);
 	return result;
 }
