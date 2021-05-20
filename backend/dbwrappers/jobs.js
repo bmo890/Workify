@@ -78,7 +78,7 @@ async function selectOffer(jobId, offerId) {
 	await query(
 		SQL`UPDATE offers
 		SET selected = true
-		WHERE offerId = ${offerId}`
+		WHERE id = ${offerId}`
 	);
 }
 exports.selectOffer = selectOffer;

@@ -27,8 +27,9 @@ export default function JobPage(props) {
 	const handleSelectOffer = async (offerId) => {
 		const offer = {
 			offerId,
-			jobId: jobInfo.jobId
+			jobId
 		};
+		console.log(offer);
 		await selectOffer(offer);
 		setSelectedOffer(offerId);
 	};
