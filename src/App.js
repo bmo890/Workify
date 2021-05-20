@@ -58,8 +58,10 @@ function App() {
 						<JobPage />
 					</Route>
 					<Route path="/login">
-						<SignupModal />
-						<Login />
+						<div className="LoginPageWrapper">
+							<Login />
+							<SignupModal />
+						</div>
 					</Route>
 					<Route path="/about">
 						<AboutUs />
