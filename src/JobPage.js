@@ -115,6 +115,7 @@ export default function JobPage(props) {
 					)}
 				</div>
 			</div>
+			<h1>Offers</h1>
 			<ListGroup>
 				{jobInfo.offers.map((offer) => {
 					if (offer.user_id === auth.user.id) {
