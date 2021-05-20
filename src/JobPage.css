@@ -1,0 +1,42 @@
+.topInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 0 2rem 0
+}
+
+
+.infoBox {
+    background-color: #F3DDAB;
+    border-radius: 2rem;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.housingPic {
+    width: auto;
+    max-height: 30rem;
+    display: flex;
+    justify-content: center;
+}
+
+.housingOffers {
+    border: 3px solid #212529;
+    border-radius: 2rem;
+    width: 15rem
+}
+.offers {
+    text-align: center;
+}
+
+.picAndOffers{
+    background-color: #F3DDAB;
+    border-radius: 2rem;
+    margin: 0 10rem 0 10rem;
+    padding: 2rem 0 2rem 0;
+
+    /* border: 10px solid blue; */
+    display: flex;
+    justify-content: space-evenly;
+}
