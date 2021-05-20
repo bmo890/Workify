@@ -35,7 +35,9 @@ export default function MyOffersPage(props) {
 									}
 									jobName={job.title}
 									description={job.description}
+									category={job.category}
 									datePosted={job.datePosted}
+									createdDate={job.createdDate}
 								/>
 							</div>
 						);

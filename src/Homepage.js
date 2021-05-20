@@ -35,7 +35,7 @@ export default function Homepage(props) {
             if (jobList.jobs.length === 0) {
                 setNoneFound(true)
             }
-            
+
         } catch (err) {
             console.log(err)
         }
@@ -44,7 +44,6 @@ export default function Homepage(props) {
     useEffect(async () => {
         if (auth.user) {
             const localJobsList = await getJobList(auth.user.location)
-            console.log(localJobsList.jobs.length)
             setLocalJobs(localJobsList.jobs)
         }
     }, [])
@@ -55,16 +54,16 @@ export default function Homepage(props) {
             {/* Search Bar */}
             <div style={{ display: 'flex', justifyContent: 'center', padding: '5rem 10rem 0 10rem' }} className="container">
                 <div style={{ display: 'flex', justifyContent: 'center' }} className="container">
-                    <input className="form-control" type="search" placeholder="Search jobs by city" onChange={(event) => handleSearchParams(event.target.value)} />
+                    <input className="form-control" type="search" placeholder="Search jobs near you" onChange={(event) => handleSearchParams(event.target.value)} />
                     <button disabled={searchParams.length === 0} type="button" className="btn btn-primary" onClick={(event) => handleSearchSubmit(event)}>Search</button>
                 </div>
             </div>
             {/* Job Card Display */}
-            <div hidden={!resultsLength}>
+            <div hidden={!resultsLength} style={{fontSize: '2rem', margin: '2rem 0 .5rem 8rem'}}>
                 {resultsLength} job found near you!
             </div>
             <div hidden={!noneFound}>
-                No Jobs Found Near You
+                No Jobs Found. Try A Different Search
             </div>
             <div>
                 {searchResults &&
@@ -77,7 +76,8 @@ export default function Homepage(props) {
                                         picture={job.picture ? job.picture : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'}
                                         jobName={job.title}
                                         description={job.description}
-                                        datePosted={job.datePosted}
+                                        category={job.category}
+                                        createdDate={job.createdDate}
                                     />
                                 </div>
                             )
@@ -87,8 +87,9 @@ export default function Homepage(props) {
             </div>
             <div>
                 {localJobs &&
-                    <div>
-                        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="container">
+                    <div hidden={localJobs.length < 1}>
+                        <div  style={{fontSize: '2rem', margin: '2rem 0 .5rem 8rem'}}> All Jobs In {auth.user.location}</div>
+                        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', fontSize: '1rem' }} className="container">
                             {localJobs.map((job) => {
                                 return (
                                     <div style={{ margin: '1rem' }}>
@@ -98,7 +99,8 @@ export default function Homepage(props) {
                                             picture={job.picture ? job.picture : 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'}
                                             jobName={job.title}
                                             description={job.description}
-                                            datePosted={job.datePosted}
+                                            category={job.category}
+                                            createdDate={job.createdDate}
                                         />
                                     </div>
                                 )
