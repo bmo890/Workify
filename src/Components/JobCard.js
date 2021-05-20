@@ -8,7 +8,6 @@ import { useAuth } from '../Components/Auth'
 
 export default function JobCard(props) {
     let auth = useAuth()
-    
     return (<div>
         <Card style={{ width: '15rem', minHeight: '25rem', display: 'flex', justifyContent: 'center' }}>
             <div style={{ border: '1px solid green', display: 'flex', justifyContent: 'center', backgroundColor: '#484D5B' }}>
@@ -17,7 +16,8 @@ export default function JobCard(props) {
             </div>
             <Card.Body>
                 <Card.Title>{props.jobName}</Card.Title>
-                <Card.Text style={{ fontStyle: 'italic' }}>Listed {props.datePosted}</Card.Text>
+                <Card.Text style={{ marginBottom:'.5rem', fontSize:'.8em' }}><b>Category: </b>{props.category}</Card.Text>
+                <Card.Text style={{ fontStyle: 'italic', marginBottom:'.5rem' }}>Listed {props.datePosted}</Card.Text>
                 <Card.Text>{props.description}</Card.Text>
                 <Link hidden={!auth.user} to={`job/${props.id}`}>
                     <Button disabled={!auth.user} variant="primary">See More</Button>
