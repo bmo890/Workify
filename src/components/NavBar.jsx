@@ -11,8 +11,8 @@ function NavBar() {
 				<Nav className="mr-auto">
 					<Nav.Link href="/">Home</Nav.Link>
 					<Nav.Link href="/about">About Us</Nav.Link>
-					<Nav.Link href="/jobform">Post a Job</Nav.Link>
-					<Nav.Link href="/profile">Profile</Nav.Link>
+					{auth.user && <Nav.Link href="/jobform">Post a Job</Nav.Link>}
+					{auth.user && <Nav.Link href="/profile">Profile</Nav.Link>}
 					{auth.user && <Nav.Link href="/myjobs">My Jobs</Nav.Link>}
 					{auth.user && <Nav.Link href="/myoffers">My Offers</Nav.Link>}
 					<Nav.Link href={auth.user ? '/logout' : '/login'}>{auth.user ? 'Logout' : 'Login'}</Nav.Link>

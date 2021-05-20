@@ -1,0 +1,49 @@
+.loginForm {
+    background: #484d5b;
+    border-radius: 70px;
+}
+
+.loginFormWrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5px;
+    height: 200px;
+    width: 500px;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginContainer>* {
+    margin: 20px;
+}
+
+.emailTag {
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.passwordTag {
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginButton {
+    margin: 10px;
+    align-self: center;
+}

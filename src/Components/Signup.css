@@ -1,0 +1,32 @@
+.signupText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signupText>* {
+    margin: 5px;
+}
+
+.SignUpForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.SignUpForm>* {
+    margin-top: 10px;
+}
+
+.SignUpSubmitButton {
+    margin-top: 15px;
+    align-self: center;
+}
+
+.ModalContainer {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    flex-direction: column;
+}
