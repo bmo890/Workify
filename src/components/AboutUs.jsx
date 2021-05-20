@@ -4,9 +4,7 @@ import { Container, Badge, CardColumns, Card, Image } from "react-bootstrap";
 function AboutUs() {
   return (
     <Container>
-      <h2 className="text-center m-4 display-3">
-        About <Badge variant="info">Workify</Badge>
-      </h2>
+      <h2 className="text-center m-4 display-3">About Workify</h2>
       <p>
         Adipisicing laborum occaecat elit cillum dolor ad nulla officia duis
         dolor aliquip in proident officia. Amet labore labore ipsum non deserunt
