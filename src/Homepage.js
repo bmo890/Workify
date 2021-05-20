@@ -35,7 +35,7 @@ export default function Homepage(props) {
             if (jobList.jobs.length === 0) {
                 setNoneFound(true)
             }
-            
+
         } catch (err) {
             console.log(err)
         }
@@ -59,7 +59,7 @@ export default function Homepage(props) {
                 </div>
             </div>
             {/* Job Card Display */}
-            <div hidden={!resultsLength}>
+            <div hidden={!resultsLength} style={{fontSize: '2rem', margin: '2rem 0 .5rem 8rem'}}>
                 {resultsLength} job found near you!
             </div>
             <div hidden={!noneFound}>
@@ -77,7 +77,7 @@ export default function Homepage(props) {
                                         jobName={job.title}
                                         description={job.description}
                                         category={job.category}
-                                        datePosted={job.datePosted}
+                                        createdDate={job.createdDate}
                                     />
                                 </div>
                             )
@@ -87,8 +87,9 @@ export default function Homepage(props) {
             </div>
             <div>
                 {localJobs &&
-                    <div hidden={localJobs.length < 1}> All Jobs In {auth.user.location}
-                        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="container">
+                    <div hidden={localJobs.length < 1}>
+                        <div  style={{fontSize: '2rem', margin: '2rem 0 .5rem 8rem'}}> All Jobs In {auth.user.location}</div>
+                        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', fontSize: '1rem' }} className="container">
                             {localJobs.map((job) => {
                                 return (
                                     <div style={{ margin: '1rem' }}>
@@ -99,7 +100,7 @@ export default function Homepage(props) {
                                             jobName={job.title}
                                             description={job.description}
                                             category={job.category}
-                                            datePosted={job.datePosted}
+                                            createdDate={job.createdDate}
                                         />
                                     </div>
                                 )

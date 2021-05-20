@@ -34,7 +34,9 @@ export default function MyJobsPage(props) {
 									}
 									jobName={job.title}
 									description={job.description}
-									datePosted={job.datePosted}
+									category={job.category}
+									datePosted={job.createdDate}
+									createdDate={job.createdDate}
 								/>
 							</div>
 						);

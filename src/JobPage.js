@@ -86,7 +86,7 @@ export default function JobPage(props) {
 				</Modal.Footer>
 			</Modal>
 			<h1>{jobInfo.title}</h1>
-			<h3>Posted by: {posterInfo.firstName}</h3>
+			<h3>Posted by: {posterInfo.firstName} {posterInfo.lastName}</h3>
 			<h3>{posterInfo.location}</h3>
 			<h4>Added: {timeStamp}</h4>
 			<h4>Category: {jobInfo.category}</h4>
