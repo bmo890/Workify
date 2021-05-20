@@ -8,8 +8,8 @@ export default function JobPage(props) {
 	const [ jobInfo, setJobInfo ] = useState('');
 	const [ posterInfo, setPosterInfo ] = useState('');
 	const [ showModal, setShowModal ] = useState(false);
-	const [ selectedOffer, setSelectedOffer ] = useState('');
 	const [ price, setPrice ] = useState('');
+	const [ isOffered, setIsOffered ] = useState(false);
 	const auth = useAuth();
 	let { jobId } = useParams();
 
@@ -29,9 +29,8 @@ export default function JobPage(props) {
 			offerId,
 			jobId
 		};
-		console.log(offer);
 		await selectOffer(offer);
-		setSelectedOffer(offerId);
+		window.location.reload();
 	};
 	const postAnOffer = async () => {
 		if (price <= 0) {
@@ -104,9 +103,9 @@ export default function JobPage(props) {
 				/>
 				<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '1rem' }}>
 					<div>{jobInfo.description}</div>
-					{auth.user.id === jobInfo.userId && (
+					{auth.user.id !== jobInfo.userId && (
 						<Button
-							disabled={!auth.user}
+							disabled={!auth.user || isOffered}
 							variant="primary"
 							style={{ margin: '1rem 15rem 0 15rem' }}
 							onClick={handleOffer}
@@ -116,15 +115,16 @@ export default function JobPage(props) {
 					)}
 				</div>
 			</div>
-			<ListGroup defaultActiveKey={selectedOffer}>
+			<ListGroup>
 				{jobInfo.offers.map((offer) => {
-					if (offer.selected) {
-						setSelectedOffer(offer.id);
+					if (offer.user_id === auth.user.id) {
+						if (!isOffered) setIsOffered(true);
 					}
 					return (
 						<ListGroup.Item
 							key={offer.id}
 							action
+							active={offer.selected}
 							onClick={() => handleSelectOffer(offer.id)}
 							disabled={auth.user.id !== jobInfo.userId}
 						>{`${offer.firstName} ${offer.lastName} Offered for: ${offer.price}$`}</ListGroup.Item>
