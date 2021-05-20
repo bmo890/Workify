@@ -24,6 +24,7 @@ export default function MyJobsPage(props) {
 						return (
 							<div style={{ margin: '1rem' }} key={job.jobId}>
 								<JobCard
+									id={job.jobId}
 									picture={
 										job.picture ? (
 											job.picture

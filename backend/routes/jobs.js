@@ -1,5 +1,15 @@
 const express = require('express');
-const { addJob, getJobs, getJob, getJobOffers, searchJobs, addOffer, getJobsByUserId, getMyOffers} = require('../dbwrappers/jobs');
+const {
+	addJob,
+	getJobs,
+	getJob,
+	getJobOffers,
+	searchJobs,
+	addOffer,
+	getJobsByUserId,
+	getMyOffers,
+	selectOffer
+} = require('../dbwrappers/jobs');
 const { uploadToCloud } = require('../lib/cloudinary');
 const { upload } = require('../middlewares/multipart');
 const parseBody = require('../middlewares/parseMiddleware');
@@ -91,31 +101,39 @@ router.post('/offers', async (req, res, next) => {
 });
 
 router.get('/my/:userId', async (req, res, next) => {
-	try{
-		const {userId} = req.params
-		if(!userId){
-			res.status(400).send({message : 'missing userId Param'})
+	try {
+		const { userId } = req.params;
+		if (!userId) {
+			res.status(400).send({ message: 'missing userId Param' });
 		}
-		const response = await getJobsByUserId(userId)
-		res.status(200).send({response})
-	} catch(err){
-		next(err)
+		const response = await getJobsByUserId(userId);
+		res.status(200).send({ response });
+	} catch (err) {
+		next(err);
 	}
-}
-)
+});
 
-router.get('/offers/:userId', async(req, res, next) =>{
-	try{
-		const {userId} = req.params
-		if(!userId){
-			res.status(400).send({ message: 'missing userId Param' })
+router.get('/offers/:userId', async (req, res, next) => {
+	try {
+		const { userId } = req.params;
+		if (!userId) {
+			res.status(400).send({ message: 'missing userId Param' });
 		}
-		const response = await getMyOffers(userId)
-		res.status(200).send({response})
-	} catch(err){
-		next(err)
+		const response = await getMyOffers(userId);
+		res.status(200).send({ response });
+	} catch (err) {
+		next(err);
 	}
-}
-)
+});
+
+router.put('/offers', async (req, res, next) => {
+	try {
+		const { jobId, offerId } = req.body;
+		await selectOffer(jobId, offerId);
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+});
 
 module.exports = router;

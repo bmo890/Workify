@@ -70,3 +70,15 @@ async function getMyOffers(userId) {
 	return result;
 }
 exports.getMyOffers = getMyOffers;
+
+async function selectOffer(jobId, offerId) {
+	await query(SQL`UPDATE offers
+	SET selected = false
+	WHERE id=${jobId} AND selected=true`);
+	await query(
+		SQL`UPDATE offers
+		SET selected = true
+		WHERE offerId = ${offerId}`
+	);
+}
+exports.selectOffer = selectOffer;

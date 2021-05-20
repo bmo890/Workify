@@ -23,9 +23,9 @@ export default function MyOffersPage(props) {
 				<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="container">
 					{jobs.map((job) => {
 						return (
-							<div style={{ margin: '1rem' }}>
+							<div style={{ margin: '1rem' }} key={job.jobId}>
 								<JobCard
-									key={job.jobId}
+									id={job.jobId}
 									picture={
 										job.picture ? (
 											job.picture
